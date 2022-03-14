@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pocket_flutter/pages/home_page.dart';
 import 'dart:async';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -243,7 +244,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<bool> login() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse('http://192.168.0.103:3333/sessions');
+    var session = dotenv.get('baseUrl', fallback: 'Não encontrado');
+    var url = Uri.parse('$session');
     var resposta = await http.post(
       url,
       headers: <String, String>{
