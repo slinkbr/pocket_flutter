@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'dart:ui';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:pocket_flutter/pages/caduser_page.dart';
 import 'package:pocket_flutter/pages/home_page.dart';
 import 'dart:async';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -55,12 +53,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: <Widget>[
                     Center(
-                        // child: SizedBox(
-                        //   height: 200,
-                        //   width: 200,
-                        //   child: Image.asset("lib/assets/km_logo.png"),
-                        // ),
-                        ),
+                      child: SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: Image.asset("assets/imagens/logo4.png"),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -209,19 +207,20 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                                 child: const Text('Logar'),
                               ),
+                              const SizedBox(height: 20),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const CadUser(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                    'Ainda não tem conta? Cadastre-se agora.'),
+                              ),
                             ],
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            "Versão 1.0.0",
-                            style: TextStyle(
-                                color: Colors.grey.shade500, fontSize: 10),
-                          ),
-                          Text(
-                            "Para acessar os arquivos é necessário entrar com o seu login e senha nos campos acima!",
-                            style: TextStyle(
-                                color: Colors.grey.shade500, fontSize: 10),
-                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -244,15 +243,15 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<bool> login() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var session = dotenv.get('baseUrl', fallback: 'Não encontrado');
-    var url = Uri.parse('$session');
+    var url = Uri.parse(
+        '${dotenv.get('baseUrl', fallback: 'Não encontrado')}/sessions');
     var resposta = await http.post(
       url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        "email": _emailController.text,
+        "email": _emailController.text.toLowerCase(),
         "password": _passwordController.text
       }),
     );
