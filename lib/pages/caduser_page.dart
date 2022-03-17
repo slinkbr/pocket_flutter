@@ -14,6 +14,7 @@ class CadUser extends StatefulWidget {
 }
 
 class _CadUserState extends State<CadUser> {
+  bool escondeSenha = true;
   final name = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
@@ -122,7 +123,7 @@ class _CadUserState extends State<CadUser> {
                             ),
                           ]),
                       child: TextFormField(
-                        obscureText: true,
+                        obscureText: escondeSenha,
                         controller: password,
                         validator: Validatorless.multiple([
                           Validatorless.required('Campo senha é obrigatório'),
@@ -150,7 +151,6 @@ class _CadUserState extends State<CadUser> {
                             ),
                           ]),
                       child: TextFormField(
-                        obscureText: true,
                         controller: confirmpass,
                         validator: Validatorless.multiple([
                           Validatorless.required('Campo senha é obrigatório'),
@@ -163,6 +163,7 @@ class _CadUserState extends State<CadUser> {
                           labelText: 'Confirmar Senha',
                           border: OutlineInputBorder(),
                         ),
+                        obscureText: escondeSenha,
                         keyboardType: TextInputType.visiblePassword,
                       ),
                     ),
@@ -261,6 +262,12 @@ class _CadUserState extends State<CadUser> {
         );
       },
     );
+  }
+
+  void _togglePasswordView2() {
+    setState(() {
+      escondeSenha = !escondeSenha;
+    });
   }
 
   Future<void> _showDialogSalvoErro(erro) async {

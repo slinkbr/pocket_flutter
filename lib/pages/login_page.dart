@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: TextFormField(
                                     style: const TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
-                                      hintText: "Usuário",
+                                      hintText: "Parceiro",
                                       prefixIcon: Icon(
                                         Icons.person,
                                         color: Colors.grey.shade500,
@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                                     controller: _emailController,
                                     validator: (email) {
                                       if (email == null || email.isEmpty) {
-                                        return 'Insira um usuário!';
+                                        return 'Insira um parceiro!';
                                       }
                                       return null;
                                     },
