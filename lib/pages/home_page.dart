@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pocket_flutter/pages/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'caduser_page.dart';
+import 'edituser_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               decoration: const BoxDecoration(color: Colors.green),
-              accountName: const Text('Usuario'),
+              accountName: const Text('dono'),
               accountEmail: const Text('email@dominio.com.br'),
             ),
             ListTile(
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const CadUser(),
+                    builder: (context) => const EditParceiro(),
                   ),
                 );
               },
@@ -89,13 +89,6 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Deseja realmente sair do sistema?'),
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: const <Widget>[
-          //       Text('Atenção, todos os dados não enviados serão perdidos!'),
-          //     ],
-          //   ),
-          // ),
           actions: <Widget>[
             TextButton(
               child: const Text('Sair'),
